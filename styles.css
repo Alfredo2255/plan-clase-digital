@@ -22,7 +22,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: var(--azul-oscuro);
-    color: white;
+    color: rgb(182, 236, 31);
     padding: 15px 30px;
 }
 
