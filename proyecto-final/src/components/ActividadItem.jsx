@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-// Paleta: usa tu azul y tu verde lima como base
 const NIVELES = {
-  basico:     { etiqueta: "Básico",     barras: 1, color: "#2e9e6b" },
-  intermedio: { etiqueta: "Intermedio", barras: 2, color: "#f0a020" },
-  avanzado:   { etiqueta: "Avanzado",   barras: 3, color: "#d64545" },
+  basico:     { etiqueta: "Dificultad básica",     barras: 1, color: "#2e9e6b" },
+  intermedio: { etiqueta: "Dificultad intermedia", barras: 2, color: "#d98b0b" },
+  avanzado:   { etiqueta: "Dificultad avanzada",   barras: 3, color: "#c53a3a" },
 };
 
 const FASES = {
-  inicio:     { etiqueta: "Inicio",     fondo: "#e0f2fe", texto: "#0b5b8a" },
+  inicio:     { etiqueta: "Inicio",     fondo: "#e0f2fe", texto: "#075985" },
   desarrollo: { etiqueta: "Desarrollo", fondo: "#ede9fe", texto: "#4c3aa8" },
   cierre:     { etiqueta: "Cierre",     fondo: "#ecfccb", texto: "#3f6212" },
 };
@@ -16,19 +15,23 @@ const FASES = {
 function IndicadorDificultad({ nivel }) {
   const { etiqueta, barras, color } = NIVELES[nivel];
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "6px", margin: "6px 0" }}>
-      {[1, 2, 3].map((n) => (
-        <span
-          key={n}
-          style={{
-            width: "28px",
-            height: "8px",
-            borderRadius: "4px",
-            backgroundColor: n <= barras ? color : "#d9dce6",
-          }}
-        />
-      ))}
-      <small style={{ color, fontWeight: "bold" }}>{etiqueta}</small>
+    <div style={{ margin: "10px 0" }}>
+      <div style={{ display: "flex", gap: "6px" }}>
+        {[1, 2, 3].map((n) => (
+          <span
+            key={n}
+            style={{
+              flex: 1,
+              height: "8px",
+              borderRadius: "4px",
+              backgroundColor: n <= barras ? color : "#e2e6f0",
+            }}
+          />
+        ))}
+      </div>
+      <small style={{ color, fontWeight: 600, display: "block", marginTop: "4px" }}>
+        {etiqueta}
+      </small>
     </div>
   );
 }
@@ -46,8 +49,8 @@ function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio" 
       style={{
         transition: "box-shadow 0.3s ease, transform 0.3s ease",
         boxShadow: hover
-          ? "0 10px 24px rgba(31, 47, 122, 0.30)"
-          : "0 2px 4px rgba(0, 0, 0, 0.10)",
+          ? "0 12px 28px rgba(30, 47, 107, 0.25)"
+          : "0 1px 3px rgba(0, 0, 0, 0.08)",
         transform: hover ? "translateY(-4px)" : "translateY(0)",
       }}
     >
@@ -56,23 +59,27 @@ function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio" 
           display: "inline-block",
           backgroundColor: f.fondo,
           color: f.texto,
-          padding: "2px 10px",
-          borderRadius: "12px",
+          padding: "3px 12px",
+          borderRadius: "999px",
           fontSize: "0.75rem",
-          fontWeight: "bold",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "0.5px",
         }}
       >
-        {f.etiqueta}
+        Fase: {f.etiqueta}
       </span>
 
-      <strong className="actividad-nombre" style={{ display: "block", marginTop: "6px" }}>
+      <strong className="actividad-nombre" style={{ display: "block", marginTop: "8px" }}>
         {nombre}
       </strong>
-      <p>{descripcion}</p>
+      <p style={{ margin: "4px 0" }}>{descripcion}</p>
 
       <IndicadorDificultad nivel={nivel} />
 
-      <p>Estado: {completada ? "✅ Completada" : "⏳ Pendiente"}</p>
+      <p style={{ fontSize: "0.9rem", fontWeight: 600 }}>
+        Estado: {completada ? "Completada" : "Pendiente"}
+      </p>
 
       <button onClick={() => setCompletada(!completada)}>
         {completada ? "Marcar como pendiente" : "Marcar como completada"}

@@ -57,20 +57,26 @@ function App() {
         </div>
 
         <section className="tarjeta-modulo">
-          <h2>📝 Actividades de la sesión</h2>
+          <h2>Actividades de la sesión</h2>
           <ul className="lista-actividades">
-            <ActividadItem
-              nombre="Lluvia de ideas"
-              descripcion="Los estudiantes comparten qué creen que necesitan las plantas para vivir."
-            />
-            <ActividadItem
-              nombre="Video explicativo"
-              descripcion="Observar un video corto sobre la fotosíntesis y tomar apuntes."
-            />
-            <ActividadItem
-              nombre="Dibujo del proceso"
-              descripcion="Dibujar y rotular las etapas de la fotosíntesis en su cuaderno."
-            />
+           <ActividadItem
+  nombre="Lluvia de ideas"
+  descripcion="Los estudiantes comparten qué creen que necesitan las plantas para vivir."
+  nivel="basico"
+  fase="inicio"
+/>
+<ActividadItem
+  nombre="Video explicativo"
+  descripcion="Observar un video corto sobre la fotosíntesis y tomar apuntes."
+  nivel="intermedio"
+  fase="desarrollo"
+/>
+<ActividadItem
+  nombre="Dibujo del proceso"
+  descripcion="Dibujar y rotular las etapas de la fotosíntesis en su cuaderno."
+  nivel="avanzado"
+  fase="cierre"
+/>
           </ul>
         </section>
       </main>

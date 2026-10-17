@@ -1,167 +1,150 @@
 :root {
-    --azul-oscuro: #1f2f7a;
-    --gris-fondo: #f3f5fa;
-    --texto: #222;
+  --azul: #1e2f6b;
+  --azul-claro: #e8ecf8;
+  --lima: #b6ec1f;
+  --fondo: #f4f6fb;
+  --texto: #1f2937;
+  --texto-suave: #4b5563;
+  --borde: #d6dbea;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--gris-fondo);
-    color: var(--texto);
-    line-height: 1.6;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 17px;
+  background-color: var(--fondo);
+  color: var(--texto);
+  line-height: 1.7;
 }
 
+/* ===== Navbar ===== */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--azul-oscuro);
-    color: rgb(182, 236, 31);
-    padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--azul);
+  padding: 16px 36px;
 }
-
 .navbar-logo {
-    font-size: 2.5rem;
-    font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--lima);
+  letter-spacing: -0.5px;
 }
-
-.navbar-enlaces {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-}
-
+.navbar-enlaces { display: flex; gap: 26px; list-style: none; }
 .navbar-enlaces a {
-    color: white;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.navbar-enlaces a:hover { border-bottom-color: var(--lima); }
+
+/* ===== Header de la clase ===== */
+.header-clase {
+  text-align: center;
+  padding: 48px 20px 32px;
+  background: #fff;
+  border-bottom: 4px solid var(--lima);
+}
+.header-clase h1 {
+  color: var(--azul);
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 14px 0 10px;
+}
+.header-clase p { color: var(--texto-suave); }
+.header-clase strong { color: var(--texto); }
+.header-etiqueta {
+  display: inline-block;
+  background-color: var(--azul);
+  color: var(--lima);
+  padding: 5px 16px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-.navbar-enlaces a:hover {
-    text-decoration: underline;
-}
-
-.encabezado {
-    text-align: center;
-    padding: 40px 20px 10px;
-}
-
-.encabezado h1 {
-    color: var(--azul-oscuro);
-}
-
+/* ===== Tarjetas ===== */
 .contenedor-tarjetas {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: 24px;
-    padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 40px 30px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
-
 .tarjeta-modulo {
-        width: 300px;
-    background-color: white;
-    border: 3px solid var(--azul-oscuro);
-    border-radius: 14px;
-    padding: 20px;
-    margin: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  width: 320px;
+  background-color: #fff;
+  border: 1px solid var(--borde);
+  border-top: 5px solid var(--azul);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(30, 47, 107, 0.08);
 }
-
 .tarjeta-modulo h2 {
-    color: var(--azul-oscuro);
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+  color: var(--azul);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
+.tarjeta-modulo h3 {
+  color: var(--azul);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 18px;
+  margin-bottom: 4px;
+}
+.tarjeta-modulo p { color: var(--texto-suave); }
+.tarjeta-modulo ul { padding-left: 20px; color: var(--texto-suave); }
+.tarjeta-modulo li { margin-bottom: 6px; }
 
-.tarjeta-modulo ul {
-    padding-left: 20px;
+/* ===== Actividades ===== */
+.lista-actividades { list-style: none; padding-left: 0 !important; }
+.actividad {
+  padding: 16px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--borde);
+  border-left: 5px solid var(--azul);
+  background-color: #fff;
 }
+.actividad.completada {
+  border-left-color: #2e9e6b;
+  background-color: #f1faf5;
+}
+.actividad-nombre { color: var(--texto); font-size: 1.05rem; }
+.actividad.completada .actividad-nombre {
+  text-decoration: line-through;
+  color: #8a93a5;
+}
+.actividad button {
+  margin-top: 10px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--azul);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.actividad button:hover { background-color: #2b418f; }
 
 @media (max-width: 600px) {
-    .navbar {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .navbar-enlaces {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .tarjeta-modulo {
-        width: 100%;
-    }
-}
-/* ===== HeaderClase ===== */
-.header-clase {
-    text-align: center;
-    padding: 40px 20px 25px;
-    border-bottom: 5px solid rgb(182, 236, 31); /* detalle visual propio: línea verde lima */
-}
-
-.header-clase h1 {
-    color: var(--azul-oscuro);
-    margin: 10px 0;
-}
-
-.header-etiqueta {
-    display: inline-block;
-    background-color: var(--azul-oscuro);
-    color: rgb(182, 236, 31);
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-
-/* ===== ObjetivosCard ===== */
-.tarjeta-modulo h3 {
-    color: var(--azul-oscuro);
-    font-size: 1rem;
-    margin-top: 12px;
-}
-
-/* ===== ActividadItem ===== */
-.lista-actividades {
-    list-style: none;
-    padding-left: 0 !important;
-}
-
-.actividad {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    border-left: 6px solid orange;
-    background-color: #fff7e6;
-}
-
-.actividad.completada {
-    border-left-color: green;
-    background-color: #e8f8e8;
-}
-
-.actividad.completada .actividad-nombre {
-    text-decoration: line-through;
-    color: gray;
-}
-
-.actividad button {
-    margin-top: 6px;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: var(--azul-oscuro);
-    color: white;
-    cursor: pointer;
-}
-
-.actividad button:hover {
-    opacity: 0.85;
+  .navbar { flex-direction: column; gap: 10px; }
+  .navbar-enlaces { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .tarjeta-modulo { width: 100%; }
+  .header-clase h1 { font-size: 1.8rem; }
 }
