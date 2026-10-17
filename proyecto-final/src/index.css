@@ -1,0 +1,167 @@
+:root {
+    --azul-oscuro: #1f2f7a;
+    --gris-fondo: #f3f5fa;
+    --texto: #222;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--gris-fondo);
+    color: var(--texto);
+    line-height: 1.6;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--azul-oscuro);
+    color: rgb(182, 236, 31);
+    padding: 15px 30px;
+}
+
+.navbar-logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.navbar-enlaces {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.navbar-enlaces a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-enlaces a:hover {
+    text-decoration: underline;
+}
+
+.encabezado {
+    text-align: center;
+    padding: 40px 20px 10px;
+}
+
+.encabezado h1 {
+    color: var(--azul-oscuro);
+}
+
+.contenedor-tarjetas {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 30px;
+}
+
+.tarjeta-modulo {
+        width: 300px;
+    background-color: white;
+    border: 3px solid var(--azul-oscuro);
+    border-radius: 14px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.tarjeta-modulo h2 {
+    color: var(--azul-oscuro);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.tarjeta-modulo ul {
+    padding-left: 20px;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar-enlaces {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tarjeta-modulo {
+        width: 100%;
+    }
+}
+/* ===== HeaderClase ===== */
+.header-clase {
+    text-align: center;
+    padding: 40px 20px 25px;
+    border-bottom: 5px solid rgb(182, 236, 31); /* detalle visual propio: línea verde lima */
+}
+
+.header-clase h1 {
+    color: var(--azul-oscuro);
+    margin: 10px 0;
+}
+
+.header-etiqueta {
+    display: inline-block;
+    background-color: var(--azul-oscuro);
+    color: rgb(182, 236, 31);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* ===== ObjetivosCard ===== */
+.tarjeta-modulo h3 {
+    color: var(--azul-oscuro);
+    font-size: 1rem;
+    margin-top: 12px;
+}
+
+/* ===== ActividadItem ===== */
+.lista-actividades {
+    list-style: none;
+    padding-left: 0 !important;
+}
+
+.actividad {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 6px solid orange;
+    background-color: #fff7e6;
+}
+
+.actividad.completada {
+    border-left-color: green;
+    background-color: #e8f8e8;
+}
+
+.actividad.completada .actividad-nombre {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.actividad button {
+    margin-top: 6px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--azul-oscuro);
+    color: white;
+    cursor: pointer;
+}
+
+.actividad button:hover {
+    opacity: 0.85;
+}
