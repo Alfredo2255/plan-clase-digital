@@ -13,15 +13,27 @@ const animacionTarjeta = (retraso) => ({
 function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <nav className="navbar">
-        <span className="navbar-logo">Futuro Docente</span>
+      <motion.nav
+        className="navbar"
+        initial={{ opacity: 0, y: -80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <motion.span
+          className="navbar-logo"
+          initial={{ opacity: 0, x: -60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.4 }}
+        >
+          Futuro Docente
+        </motion.span>
         <ul className="navbar-enlaces">
           <li><a href="#sobre-mi">Sobre mí</a></li>
           <li><a href="#por-que">¿Por qué la docencia?</a></li>
           <li><a href="#objetivos">Objetivos</a></li>
           <li><a href="#sesion">Mi clase</a></li>
         </ul>
-      </nav>
+      </motion.nav>
 
       <HeaderClase
         tituloTema="TEC"
