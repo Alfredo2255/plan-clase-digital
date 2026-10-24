@@ -4,10 +4,10 @@ import ObjetivosCard from "./components/ObjetivosCard";
 import ActividadItem from "./components/ActividadItem";
 
 const animacionTarjeta = (retraso) => ({
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 80 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay: retraso },
-  whileHover: { y: -6, boxShadow: "0 14px 30px rgba(30, 47, 107, 0.22)" },
+  transition: { duration: 1.2, delay: retraso },
+  whileHover: { y: -14, boxShadow: "0 20px 40px rgba(30, 47, 107, 0.3)" },
 });
 
 function App() {
