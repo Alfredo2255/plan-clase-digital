@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NIVELES = {
   basico:     { etiqueta: "Dificultad básica",     barras: 1, color: "#2e9e6b" },
@@ -38,20 +39,21 @@ function IndicadorDificultad({ nivel }) {
 
 function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio" }) {
   const [completada, setCompletada] = useState(false);
-  const [hover, setHover] = useState(false);
   const f = FASES[fase];
 
   return (
-    <li
+    <motion.li
       className={`actividad ${completada ? "completada" : "pendiente"}`}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        transition: "box-shadow 0.3s ease, transform 0.3s ease",
-        boxShadow: hover
-          ? "0 12px 28px rgba(30, 47, 107, 0.25)"
-          : "0 1px 3px rgba(0, 0, 0, 0.08)",
-        transform: hover ? "translateY(-4px)" : "translateY(0)",
+      initial={{ opacity: 0, y: 20 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        backgroundColor: completada ? "#f1faf5" : "#ffffff",
+      }}
+      transition={{ duration: 0.5 }}
+      whileHover={{
+        y: -4,
+        boxShadow: "0 12px 28px rgba(30, 47, 107, 0.25)",
       }}
     >
       <span
@@ -78,13 +80,29 @@ function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio" 
       <IndicadorDificultad nivel={nivel} />
 
       <p style={{ fontSize: "0.9rem", fontWeight: 600 }}>
-        Estado: {completada ? "Completada" : "Pendiente"}
+        Estado:{" "}
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={completada ? "completada" : "pendiente"}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 8 }}
+            transition={{ duration: 0.2 }}
+            style={{ display: "inline-block" }}
+          >
+            {completada ? "Completada" : "Pendiente"}
+          </motion.span>
+        </AnimatePresence>
       </p>
 
-      <button onClick={() => setCompletada(!completada)}>
+      <motion.button
+        onClick={() => setCompletada(!completada)}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
         {completada ? "Marcar como pendiente" : "Marcar como completada"}
-      </button>
-    </li>
+      </motion.button>
+    </motion.li>
   );
 }
 
