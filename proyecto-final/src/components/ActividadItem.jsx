@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { elevar } from "./animaciones";
 
 const NIVELES = {
   basico:     { etiqueta: "Dificultad básica",     barras: 1, color: "#2e9e6b" },
@@ -19,12 +20,17 @@ function IndicadorDificultad({ nivel }) {
     <div style={{ margin: "10px 0" }}>
       <div style={{ display: "flex", gap: "6px" }}>
         {[1, 2, 3].map((n) => (
-          <span
+          <motion.span
             key={n}
+            // las barras "crecen" de izquierda a derecha al aparecer
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.9, delay: 1.4 + n * 0.25 }}
             style={{
               flex: 1,
               height: "8px",
               borderRadius: "4px",
+              transformOrigin: "left",
               backgroundColor: n <= barras ? color : "#e2e6f0",
             }}
           />
@@ -37,24 +43,17 @@ function IndicadorDificultad({ nivel }) {
   );
 }
 
-function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio" }) {
+function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio", indice = 0 }) {
   const [completada, setCompletada] = useState(false);
   const f = FASES[fase];
 
   return (
     <motion.li
       className={`actividad ${completada ? "completada" : "pendiente"}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        backgroundColor: completada ? "#f1faf5" : "#ffffff",
-      }}
-      transition={{ duration: 0.5 }}
-      whileHover={{
-        y: -4,
-        boxShadow: "0 12px 28px rgba(30, 47, 107, 0.25)",
-      }}
+      initial={{ opacity: 0, x: -60 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1.2, delay: 1.2 + indice * 0.5, ease: "easeOut" }}
+      whileHover={elevar}
     >
       <span
         style={{
@@ -80,25 +79,14 @@ function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio" 
       <IndicadorDificultad nivel={nivel} />
 
       <p style={{ fontSize: "0.9rem", fontWeight: 600 }}>
-        Estado:{" "}
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={completada ? "completada" : "pendiente"}
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 8 }}
-            transition={{ duration: 0.2 }}
-            style={{ display: "inline-block" }}
-          >
-            {completada ? "Completada" : "Pendiente"}
-          </motion.span>
-        </AnimatePresence>
+        Estado: {completada ? "Completada" : "Pendiente"}
       </p>
 
       <motion.button
         onClick={() => setCompletada(!completada)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        transition={{ type: "spring", stiffness: 250 }}
       >
         {completada ? "Marcar como pendiente" : "Marcar como completada"}
       </motion.button>

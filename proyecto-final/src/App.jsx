@@ -1,32 +1,30 @@
-import { motion, MotionConfig } from "framer-motion";
+import { motion } from "framer-motion";
 import HeaderClase from "./components/HeaderClase";
 import ObjetivosCard from "./components/ObjetivosCard";
 import ActividadItem from "./components/ActividadItem";
+import { tarjeta, elevar, presionar } from "./components/animaciones";
 
-const animacionTarjeta = (retraso) => ({
-  initial: { opacity: 0, y: 80 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 1.2, delay: retraso },
-  whileHover: { y: -14, boxShadow: "0 20px 40px rgba(30, 47, 107, 0.3)" },
+// Propiedades de animación reutilizadas por las tarjetas simples
+const animada = (i) => ({
+  className: "tarjeta-modulo",
+  variants: tarjeta,
+  custom: i,
+  initial: "oculta",
+  animate: "visible",
+  whileHover: elevar,
+  whileTap: presionar,
 });
 
 function App() {
   return (
-    <MotionConfig reducedMotion="user">
+    <>
       <motion.nav
         className="navbar"
-        initial={{ opacity: 0, y: -80 }}
+        initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 1.2 }}
       >
-        <motion.span
-          className="navbar-logo"
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-        >
-          Futuro Docente
-        </motion.span>
+        <span className="navbar-logo">Futuro Docente</span>
         <ul className="navbar-enlaces">
           <li><a href="#sobre-mi">Sobre mí</a></li>
           <li><a href="#por-que">¿Por qué la docencia?</a></li>
@@ -42,7 +40,7 @@ function App() {
       />
 
       <main className="contenedor-tarjetas">
-        <motion.section className="tarjeta-modulo" id="sobre-mi" {...animacionTarjeta(0.1)}>
+        <motion.section {...animada(0)} id="sobre-mi">
           <h2>Un poco sobre mí</h2>
           <p>
             Soy estudiante de la carrera de Profesorado y estoy iniciando este
@@ -51,7 +49,7 @@ function App() {
           </p>
         </motion.section>
 
-        <motion.section className="tarjeta-modulo" id="por-que" {...animacionTarjeta(0.2)}>
+        <motion.section {...animada(1)} id="por-que">
           <h2>¿Por qué elegí la docencia?</h2>
           <p>
             Elegí este camino porque quiero contribuir a la formación de otras
@@ -59,7 +57,7 @@ function App() {
           </p>
         </motion.section>
 
-        <motion.section className="tarjeta-modulo" id="objetivos" {...animacionTarjeta(0.3)}>
+        <motion.section {...animada(2)} id="objetivos">
           <h2>Mis objetivos personales para este curso</h2>
           <ul>
             <li>Aprender los fundamentos básicos de HTML y CSS.</li>
@@ -71,36 +69,40 @@ function App() {
 
         <div id="sesion">
           <ObjetivosCard
+            indice={3}
             competencia="Explica el proceso de la fotosíntesis y su importancia para los seres vivos."
             indicadorLogro="Identifica las etapas de la fotosíntesis y describe con sus palabras qué necesita una planta para producir su alimento."
           />
         </div>
 
-        <motion.section className="tarjeta-modulo" {...animacionTarjeta(0.5)}>
+        <section className="tarjeta-modulo">
           <h2>Actividades de la sesión</h2>
           <ul className="lista-actividades">
             <ActividadItem
+              indice={0}
               nombre="Lluvia de ideas"
               descripcion="Los estudiantes comparten qué creen que necesitan las plantas para vivir."
               nivel="basico"
               fase="inicio"
             />
             <ActividadItem
+              indice={1}
               nombre="Video explicativo"
               descripcion="Observar un video corto sobre la fotosíntesis y tomar apuntes."
               nivel="intermedio"
               fase="desarrollo"
             />
             <ActividadItem
+              indice={2}
               nombre="Dibujo del proceso"
               descripcion="Dibujar y rotular las etapas de la fotosíntesis en su cuaderno."
               nivel="avanzado"
               fase="cierre"
             />
           </ul>
-        </motion.section>
+        </section>
       </main>
-    </MotionConfig>
+    </>
   );
 }
 
