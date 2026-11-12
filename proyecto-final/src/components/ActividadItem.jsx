@@ -1,90 +1,55 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const NIVELES = {
-  basico:     { etiqueta: "Dificultad básica",     barras: 1, color: "#2e9e6b" },
-  intermedio: { etiqueta: "Dificultad intermedia", barras: 2, color: "#d98b0b" },
-  avanzado:   { etiqueta: "Dificultad avanzada",   barras: 3, color: "#c53a3a" },
-};
+const FASES = { inicio: "Inicio", desarrollo: "Desarrollo", cierre: "Cierre" };
 
-const FASES = {
-  inicio:     { etiqueta: "Inicio",     fondo: "#e0f2fe", texto: "#075985" },
-  desarrollo: { etiqueta: "Desarrollo", fondo: "#ede9fe", texto: "#4c3aa8" },
-  cierre:     { etiqueta: "Cierre",     fondo: "#ecfccb", texto: "#3f6212" },
-};
-
-function IndicadorDificultad({ nivel }) {
-  const { etiqueta, barras, color } = NIVELES[nivel];
-  return (
-    <div style={{ margin: "10px 0" }}>
-      <div style={{ display: "flex", gap: "6px" }}>
-        {[1, 2, 3].map((n) => (
-          <span
-            key={n}
-            style={{
-              flex: 1,
-              height: "8px",
-              borderRadius: "4px",
-              backgroundColor: n <= barras ? color : "#e2e6f0",
-            }}
-          />
-        ))}
-      </div>
-      <small style={{ color, fontWeight: 600, display: "block", marginTop: "4px" }}>
-        {etiqueta}
-      </small>
-    </div>
-  );
-}
-
-function ActividadItem({ nombre, descripcion, nivel = "basico", fase = "inicio" }) {
-  const [completada, setCompletada] = useState(false);
-  const [hover, setHover] = useState(false);
-  const f = FASES[fase];
+// Tarjeta de misión reutilizable: el contenido interactivo se pasa como "children"
+function ActividadItem({ icono, nombre, descripcion, fase = "inicio", pista, puntos = 0, puntosMax = 0, children }) {
+  const [verPista, setVerPista] = useState(false);
+  const lograda = puntos >= puntosMax && puntosMax > 0;
 
   return (
-    <li
-      className={`actividad ${completada ? "completada" : "pendiente"}`}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        transition: "box-shadow 0.3s ease, transform 0.3s ease",
-        boxShadow: hover
-          ? "0 12px 28px rgba(30, 47, 107, 0.25)"
-          : "0 1px 3px rgba(0, 0, 0, 0.08)",
-        transform: hover ? "translateY(-4px)" : "translateY(0)",
-      }}
-    >
-      <span
-        style={{
-          display: "inline-block",
-          backgroundColor: f.fondo,
-          color: f.texto,
-          padding: "3px 12px",
-          borderRadius: "999px",
-          fontSize: "0.75rem",
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.5px",
-        }}
-      >
-        Fase: {f.etiqueta}
-      </span>
+    <article className={`mision ${lograda ? "lograda" : ""}`}>
+      <header className="mision-cabecera">
+        <span className="mision-icono">{icono}</span>
+        <div>
+          <span className="chip-fase">{FASES[fase]}</span>
+          <h3>{nombre}</h3>
+          <p>{descripcion}</p>
+        </div>
+        <motion.span
+          key={puntos}
+          className="mision-puntos"
+          initial={{ scale: 1.6 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
+          {lograda ? "🏅" : "⭐"} {puntos}/{puntosMax}
+        </motion.span>
+      </header>
 
-      <strong className="actividad-nombre" style={{ display: "block", marginTop: "8px" }}>
-        {nombre}
-      </strong>
-      <p style={{ margin: "4px 0" }}>{descripcion}</p>
+      {pista && (
+        <div>
+          <button type="button" className="btn-pista" onClick={() => setVerPista(!verPista)}>
+            💡 {verPista ? "Ocultar pista" : "Necesito una pista"}
+          </button>
+          <AnimatePresence>
+            {verPista && (
+              <motion.p
+                className="pista"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                {pista}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
 
-      <IndicadorDificultad nivel={nivel} />
-
-      <p style={{ fontSize: "0.9rem", fontWeight: 600 }}>
-        Estado: {completada ? "Completada" : "Pendiente"}
-      </p>
-
-      <button onClick={() => setCompletada(!completada)}>
-        {completada ? "Marcar como pendiente" : "Marcar como completada"}
-      </button>
-    </li>
+      <div className="mision-cuerpo">{children}</div>
+    </article>
   );
 }
 
